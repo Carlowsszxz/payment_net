@@ -1,6 +1,6 @@
 <?php
 // db.php - Database connection
-$host = 'localhost';
+$host = 'mysql'; // Updated host for Docker compatibility
 $user = 'root';
 $pass = '';
 $db = 'payment_tracker';
