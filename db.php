@@ -1,14 +1,13 @@
 <?php
-// Database connection using PDO
-$dsn = 'pgsql:host=dpg-d6iga7hdrdic73d3srog-a;port=5432;dbname=transactions_ukam';
-$user = 'transactions_ukam_user';
-$pass = 'G4slRMjvH0Wc0CmxNbGowtSJM58ZpfkB';
+// db.php - Database connection
+$host = 'dpg-d6iga7hdrdic73d3srog-a'; // Render PostgreSQL hostname
+$port = 5432; // PostgreSQL port
+$user = ''; // No username set
+$pass = ''; // No password set
+$db = 'transactions_ukam'; // Render PostgreSQL database name
 
-try {
-    $conn = new PDO($dsn, $user, $pass);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connected successfully!";
-} catch (PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
+$conn = new mysqli($host, $user, $pass, $db, $port); // Updated connection with port
+if ($conn->connect_error) {
+    die('Connection failed: ' . $conn->connect_error);
 }
 ?>
