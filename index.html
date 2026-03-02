@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Payment Tracker</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f8f9fa; margin: 0; padding: 0; }
+        .container { max-width: 800px; margin: 40px auto; background: #fff; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px #0001; }
+        h1 { text-align: center; color: #2c3e50; }
+        form { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 32px; }
+        form input, form button { padding: 8px; font-size: 1em; }
+        form input[type="date"] { min-width: 140px; }
+        form input, form button { flex: 1 1 180px; }
+        form button { background: #27ae60; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+        form button:hover { background: #219150; }
+        table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+        th, td { padding: 10px; border-bottom: 1px solid #eee; text-align: left; }
+        th { background: #f0f0f0; }
+        .summary { font-size: 1.2em; margin: 16px 0; text-align: right; }
+        .photo-thumb { width: 40px; height: 40px; object-fit: cover; border-radius: 4px; }
+        @media (max-width: 600px) {
+            body { font-size: 14px; }
+            h1 { font-size: 1.5em; }
+            .container { padding: 12px; }
+            form input, form button { font-size: 1em; padding: 12px; }
+            .summary { font-size: 1em; }
+            form { flex-direction: column; }
+            table { display: block; overflow-x: auto; white-space: nowrap; }
+            th, td { white-space: nowrap; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Client Payment Tracker</h1>
+        <div class="summary">
+            <strong>Total Earnings:</strong> <span id="totalEarnings">₱0</span>
+        </div>
+        <form id="paymentForm">
+            <input type="text" name="client" placeholder="Client Name" required>
+            <input type="number" name="amount" placeholder="Amount Received" min="1" required>
+            <input type="date" name="date" required>
+            <button type="submit">Add Payment</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Client Name</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Earnings</th>
+                </tr>
+            </thead>
+            <tbody id="transactionsBody">
+                <!-- Transactions will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+    <script>
+        // Demo: Static data for phase 1
+        const transactions = [
+            { client: 'Juan Dela Cruz', amount: 100, date: '2026-02-18' },
+            { client: 'Maria Santos', amount: 200, date: '2026-02-19' }
+        ];
+        const earningsPerTransaction = 20;
+        function renderTransactions() {
+            const tbody = document.getElementById('transactionsBody');
+            tbody.innerHTML = '';
+            let totalEarnings = 0;
+            transactions.forEach(trx => {
+                totalEarnings += earningsPerTransaction;
+                tbody.innerHTML += `<tr>
+                    <td>${trx.client}</td>
+                    <td>₱${trx.amount}</td>
+                    <td>${trx.date}</td>
+                    <td>₱${earningsPerTransaction}</td>
+                </tr>`;
+            });
+            document.getElementById('totalEarnings').textContent = `₱${totalEarnings}`;
+        }
+        renderTransactions();
+        // For phase 1, form does not save data yet
+        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Form submission will be enabled in the next phase!');
+        });
+    </script>
+</body>
+</html>
